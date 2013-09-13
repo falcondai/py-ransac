@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pylab
 
 def augment(xyzs):
-	axyz = ones((len(xyzs), 4))
+	axyz = np.ones((len(xyzs), 4))
 	axyz[:, :3] = xyzs
 	return axyz
 
