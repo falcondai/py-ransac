@@ -1,5 +1,4 @@
 import numpy as np
-from matplotlib import pylab
 
 def augment(xys):
 	axy = np.ones((len(xys), 3))
@@ -20,8 +19,10 @@ def count_inliers(xys, coeffs, threshold):
 
 
 if __name__ == '__main__':
+	from matplotlib import pylab
+
 	n = 100
-	max_iteration = 100
+	max_iterations = 100
 	goal_inliers = n * 0.3
 
 	# test data
@@ -33,7 +34,7 @@ if __name__ == '__main__':
 	# RANSAC
 	best = 0
 	best_model = None
-	for i in xrange(max_iteration):
+	for i in xrange(max_iterations):
 		s = sample(xys, 2)
 		m = estimate(s)
 		ic = count_inliers(xys, m, 0.01)
