@@ -1,4 +1,5 @@
 import numpy as np
+from ransac import *
 
 def augment(xyzs):
 	axyz = np.ones((len(xyzs), 4))
@@ -37,4 +38,3 @@ if __name__ == '__main__':
         a, b, c, d = m
         xx, yy, zz = plot_plane(a, b, c, d)
         ax.plot_surface(xx, yy, zz, color=(0, 1, 0, 0.5))
-		
