@@ -27,6 +27,6 @@ if __name__ == '__main__':
     pylab.scatter(xys.T[0], xys.T[1])
 
     # RANSAC
-        m, b = run_ransac(xys, estimate, lambda x, y: is_inlier(x, y, 0.01), goal_inliers, max_iterations, 20)
-        a, b, c = m
+    m, b = run_ransac(xys, estimate, lambda x, y: is_inlier(x, y, 0.01), goal_inliers, max_iterations, 20)
+    a, b, c = m
     pylab.plot([0, 10], [-c/b, -(c+10*a)/b], color=(0, 1, 0))
