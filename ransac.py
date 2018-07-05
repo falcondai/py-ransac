@@ -12,14 +12,14 @@ def run_ransac(data, estimate, is_inlier, sample_size, goal_inliers, max_iterati
             if is_inlier(m, data[j]):
                 ic += 1
 
-        print s
-        print 'estimate:', m,
-        print '# inliers:', ic
+        print(s)
+        print('estimate:', m,)
+        print('# inliers:', ic)
 
         if ic > best_ic:
             best_ic = ic
             best_model = m
             if ic > goal_inliers and stop_at_goal:
                 break
-    print 'took iterations:', i+1, 'best model:', best_model, 'explains:', best_ic
+    print('took iterations:', i+1, 'best model:', best_model, 'explains:', best_ic)
     return best_model, best_ic
