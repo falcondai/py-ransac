@@ -1,14 +1,15 @@
 import random
+from numpy import asarray
 
 def run_ransac(data, estimate, is_inlier, sample_size, goal_inliers, max_iterations, stop_at_goal=True, random_seed=None):
     best_ic = 0
     best_model = None
     random.seed(random_seed)
-    for i in xrange(max_iterations):
+    for i in range(max_iterations):
         s = random.sample(data, int(sample_size))
         m = estimate(s)
         ic = 0
-        for j in xrange(len(data)):
+        for j in range(len(data)):
             if is_inlier(m, data[j]):
                 ic += 1
 
