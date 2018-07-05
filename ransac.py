@@ -1,10 +1,11 @@
 import random
-from numpy import asarray
 
 def run_ransac(data, estimate, is_inlier, sample_size, goal_inliers, max_iterations, stop_at_goal=True, random_seed=None):
     best_ic = 0
     best_model = None
     random.seed(random_seed)
+    # random.sample cannot deal with "data" being a numpy array
+    data = list(data)
     for i in range(max_iterations):
         s = random.sample(data, int(sample_size))
         m = estimate(s)
