@@ -14,9 +14,10 @@ def is_inlier(coeffs, xyz, threshold):
     return np.abs(coeffs.dot(augment([xyz]).T)) < threshold
 
 if __name__ == '__main__':
-    from matplotlib import pylab
+    import matplotlib
+    import matplotlib.pyplot as plt
     from mpl_toolkits import mplot3d
-    fig = pylab.figure()
+    fig = plt.figure()
     ax = mplot3d.Axes3D(fig)
 
     def plot_plane(a, b, c, d):
@@ -38,3 +39,5 @@ if __name__ == '__main__':
     a, b, c, d = m
     xx, yy, zz = plot_plane(a, b, c, d)
     ax.plot_surface(xx, yy, zz, color=(0, 1, 0, 0.5))
+
+    plt.show()
