@@ -1,18 +1,20 @@
-import random
 
-def run_ransac(data, estimate, is_inlier, sample_size, goal_inliers, max_iterations, stop_at_goal=True, random_seed=None):
+import numpy as np
+
+def run_ransac(data,
+                 estimate,
+                 inlier_threshold,
+                 sample_size=3,
+                 goal_inliers=0.3,
+                 max_iterations=100,
+                 stop_at_goal=True,
+                 random_seed=None):
     best_ic = 0
     best_model = None
-    random.seed(random_seed)
-    # random.sample cannot deal with "data" being a numpy array
-    data = list(data)
     for i in range(max_iterations):
-        s = random.sample(data, int(sample_size))
+        s = data[np.random.choice(data.shape[0], int(sample_size)), :]
         m = estimate(s)
-        ic = 0
-        for j in range(len(data)):
-            if is_inlier(m, data[j]):
-                ic += 1
+        ic = count_inliers(m, data, inlier_threshold)
 
         print(s)
         print('estimate:', m,)
@@ -25,3 +27,14 @@ def run_ransac(data, estimate, is_inlier, sample_size, goal_inliers, max_iterati
                 break
     print('took iterations:', i+1, 'best model:', best_model, 'explains:', best_ic)
     return best_model, best_ic
+
+
+def plane_points_distances(plane, points):
+    aug_points = np.ones((points.shape[0], 4))
+    aug_points[:, :-1] = points
+    return np.abs(np.dot(plane, aug_points.T))
+
+
+def count_inliers(plane, points, inlier_threshold):
+    return np.count_nonzero(plane_points_distances(plane, points) < inlier_threshold)
+
